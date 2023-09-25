@@ -1,5 +1,7 @@
 from flask import Flask
 import os
+from .auth import auth
+from .bookmarks import bookmarks
 
 
 # test config is tells whether app undergoes testing or under user usage
@@ -11,9 +13,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    @app.get('/')
-    @app.get('/home')
-    def home():
-        return {"message": "Hello world"}
+    app.register_blueprint(auth)
+    app.register_blueprint(bookmarks)
 
     return app
